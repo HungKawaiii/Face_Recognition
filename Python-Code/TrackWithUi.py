@@ -36,8 +36,8 @@ config = {
   "measurementId": "G-82250C3WQS"
 }
 
-firebase = firebase.FirebaseApplication("https://facereconition-431f9-default-rtdb.firebaseio.com/", None)
-blob = Blob.from_string("gs://facereconition-431f9.appspot.com")
+firebase = firebase.FirebaseApplication("https://facereconition-431f9-default-rtdb.firebaseio.com/", None) #databaseURL
+blob = Blob.from_string("gs://facereconition-431f9.appspot.com") #storageBucket
 
 def trackImages():
     recognizer = cv2.face.LBPHFaceRecognizer_create()
@@ -93,11 +93,10 @@ def trackImages():
     Firebase = pyrebase.initialize_app(config)
     storage = Firebase.storage()
     blob = storage.child('uploads1/'+ fileName).put(fileName)
-    #jay = storage.child().get_url(blob['downloadTokens'])
     
     data =  { 'name': "Date_"+date+"  Time_"+Hour+"-"+Minute+"-"+Second, 'url': "https://console.firebase.google.com/u/6/project/facereconition-431f9/storage/facereconition-431f9.appspot.com/files~2Fuploads1~2FPython-Code~2FAttendance%5CAttendance_"+date+"_"+Hour+"-"+Minute+".csv?alt=media&token="+blob['downloadTokens']}
-    #data =  { 'name': "Date_"+date+"  Time_"+Hour+"-"+Minute+"-"+Second, 'url': jay}
-    result = firebase.post('facereconition-431f9-default-rtdb/uploads1/',data)
+    #data =  { 'name': "Date_"+date+"  Time_"+Hour+"-"+Minute+"-"+Second, 'url': ULR stograge to uploade file excel(.csv)  }
+    result = firebase.post('facereconition-431f9-default-rtdb/uploads1/',data) #databaseURL + folder you create
     print(result)
 
     cam.release()
